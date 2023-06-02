@@ -7,5 +7,15 @@ def decode_word(morse_string)
   normal_string = ''
   morse_char = ''
   space = 0
-
+  for i in 0..morse_string.length - 1
+    if morse_string[i] != ' '
+      morse_char = morse_char + morse_string[i]
+      space = 0
+    else
+      space = space + 1
+      
+    end
+  end
+  normal_string += morse_db[morse_char.strip]
+  return normal_string
 end
