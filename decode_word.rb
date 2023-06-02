@@ -13,7 +13,16 @@ def decode_word(morse_string)
       space = 0
     else
       space = space + 1
-      
+      if (morse_char.strip != nil)
+        if morse_db[morse_char.strip] != nil
+          normal_string = normal_string + morse_db[morse_char.strip]
+        end
+      end
+      if (space == 3)
+        normal_string = normal_string + ' '
+        space = 0
+      end
+      morse_char = ''
     end
   end
   normal_string += morse_db[morse_char.strip]
