@@ -1,30 +1,21 @@
-def decode_word(morse_string)
-  morse_db = { '.-' => 'A', '-...' => 'B', '-.-.' => 'C', '-..' => 'D', '.' => 'E', '..-.' => 'F',
-               '--.' => 'G', '....' => 'H', '..' => 'I', '.---' => 'J', '-.-' => 'K', '.-..' => 'L',
-               '--' => 'M', '-.' => 'N', '---' => 'O', '.--.' => 'P', '--.-' => 'Q', '.-.' => 'R',
-               '...' => 'S', '-' => 'T', '..-' => 'U', '...-' => 'V', '.--' => 'W', '-..-' => 'X',
-               '-.--' => 'Y', '--..' => 'Z' }
-  normal_string = ''
-  morse_char = ''
-  space = 0
-  for i in 0..morse_string.length - 1
-    if morse_string[i] != ' '
-      morse_char = morse_char + morse_string[i]
-      space = 0
-    else
-      space = space + 1
-      if (morse_char.strip != nil)
-        if morse_db[morse_char.strip] != nil
-          normal_string = normal_string + morse_db[morse_char.strip]
-        end
-      end
-      if (space == 3)
-        normal_string = normal_string + ' '
-        space = 0
-      end
-      morse_char = ''
-    end
-  end
-  normal_string += morse_db[morse_char.strip]
-  return normal_string
+def decode_letter(morse_string)
+  morse_code_hash = {
+    '.-' => 'A', '-...' => 'B', '-.-.' => 'C', '-..' => 'D',
+    '.' => 'E', '..-.' => 'F', '--.' => 'G',
+    '....' => 'H', '..' => 'I', '.---' => 'J', '-.-' => 'K',
+    '.-..' => 'L', '--' => 'M', '-.' => 'N', '---' => 'O', '.--.' => 'P',
+    '--.-' => 'Q', '.-.' => 'R', '...' => 'S',
+    '-' => 'T', '..-' => 'U', '...-' => 'V', '.--' => 'W',
+    '-..-' => 'X', '-.--' => 'Y', '--..' => 'Z'
+  }
+
+  morse_code_hash[morse_string]
+end
+
+def decode_word(morse_word)
+  morse_word.split.map { |morse_char| decode_letter(morse_char) }.join
+end
+
+def decode_message(morse_message)
+  morse_message.split('   ').map { |morse_word| decode_word(morse_word) }.join(' ')
 end
